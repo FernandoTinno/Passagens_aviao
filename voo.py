@@ -1,6 +1,5 @@
 import uuid
 
-
 class Voo:
     def __init__(self,assento, local_partida, local_destino,qtd_funcionarios, funcionarios, preco_passagem):
         self._id_voo = uuid.uuid4() 

@@ -1,5 +1,5 @@
 import uuid
-
+from abc import ABC, abstractmethod
 
 class Pessoa:
     def __init__(self,nome,cpf):
@@ -32,31 +32,39 @@ class Passageiro(Pessoa):
         return f'Nome: {self._nome}, Cpf: {self._cpf}'
 
     
-class Funcionario(Pessoa):
-    def __init__(self, nome, cpf, cargo):
+class Funcionario(Pessoa, ABC):
+    def __init__(self, nome, cpf):
         super().__init__(nome, cpf)
         self.__id_funcionario = uuid.uuid4()
-        self.__cargo = cargo
 
     @property
-    def _id_piloto(self):
+    def _id_funcionario(self):
         return self.__id_funcionario
 
-    @_id_piloto.setter
-    def _id_piloto(self, value):
+    @_id_funcionario.setter
+    def _id_funcionario(self, value):
         self.__id_funcionario = value
 
-    @property
-    def _cargo(self):
-        return self.__cargo
+    @abstractmethod
+    def obter_cargo(self):
+        pass
 
-    @_cargo.setter
-    def _cargo(self, value):
-        self.__cargo = value
-        
     def __repr__(self):
+        return f'{self.obter_cargo()}: {self.nome}, CPF: {self.cpf}'
+
+
+class Piloto(Funcionario):
+    def obter_cargo(self):
+        return "Piloto"
+
+class Copiloto(Funcionario):
+    def obter_cargo(self):
+        return "Copiloto"
+
+class Comissaria(Funcionario):
+    def obter_cargo(self):
+        return "Comissária"  
         
-        return f'Nome: {self._nome}, Cpf: {self._cpf}, Cargo: {self._cargo}'
 
 
 

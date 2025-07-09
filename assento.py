@@ -1,4 +1,3 @@
-
 class Assento:
     def __init__(self):
         self.__assentos = {}
@@ -20,20 +19,20 @@ class Assento:
                 codigo = f"{letra}{str(numero).zfill(2)}"
                 self.__assentos[codigo] = None  
 
-    def alocar_passageiros(self, lista_passageiros):
-        codigos = list(self.__assentos.keys())
-        for i, passageiro in enumerate(lista_passageiros):
-            self.__assentos[codigos[i]] = passageiro    
-            
-            
-            
+    def ocupar_proximo_assento_livre(self, passageiro):
+        for codigo, ocupante in self._assentos.items():
+            if ocupante is None:
+                self._assentos[codigo] = passageiro
+                return True
+        return False
+
     def __repr__(self):
         resultado = ""
-        for codigo, passageiro in self.__assentos.items():
+        for codigo, passageiro in self._assentos.items():
             if passageiro:
                 resultado += f"{codigo} -> {passageiro}\n"
             else:
                 resultado += f"{codigo} -> VAZIO\n"
-        return resultado                 
+        return resultado         
             
             
